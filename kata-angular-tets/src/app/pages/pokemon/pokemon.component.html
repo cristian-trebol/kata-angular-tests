@@ -13,12 +13,13 @@
     </mat-select>
   </mat-form-field>
 
-  <button>
-    <mat-icon class="color-primary">add_circle</mat-icon>
-    Crear nuevo pokemon
-  </button>
+    <button mat-button id="btnCreatePokemon" color="primary" [disabled]="isStateCreate()" (click)="createPokemon()">
+      <mat-icon class="color-primary">add_circle</mat-icon>
+      Crear nuevo pokemon
+    </button>
 
-  <mat-card *ngIf="pokemonDetail">
+
+  <mat-card *ngIf="pokemonDetail && isStateVisualize()">
     <mat-card-header class="align-center">
       <mat-card-title class="align-center">{{ pokemonNameSelected | titlecase}}</mat-card-title>
     </mat-card-header>
@@ -37,4 +38,12 @@
       </div>
     </mat-card-content>
   </mat-card>
+
+  <ng-container  *ngIf="isStateCreate()">
+    <button id="btnCancelCreate" (click)="cancelCreate()" class="btn btn-secondary">
+      Cancelar 
+    </button>
+
+    <app-pokemon-form></app-pokemon-form>
+  </ng-container>
 </div>

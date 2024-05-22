@@ -13,6 +13,8 @@ export class PokemonComponent implements OnInit {
   pokemonDetail!: PokemonDetail;
   pokemonNameSelected!: string;
 
+  state: 'create' | 'visualize' = 'visualize';
+
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
@@ -34,9 +36,22 @@ export class PokemonComponent implements OnInit {
 
   createPokemon() {
     //IMPLEMENTAR
+    this.state = 'create';
+  }
+
+  cancelCreate(){
+    this.state ='visualize';
   }
 
   deletePokemon(name: string) {
     this.pokemons = this.pokemons.filter((pokemon) => pokemon.name !== name);
   }
+
+  isStateVisualize ():boolean{
+   return this.state === 'visualize';
+  }
+
+  isStateCreate ():boolean{
+    return this.state === 'create';
+   }
 }

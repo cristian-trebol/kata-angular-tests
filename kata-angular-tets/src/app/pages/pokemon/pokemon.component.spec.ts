@@ -5,13 +5,13 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { ComponentModule } from 'src/app/components/component.module';
 
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
@@ -27,9 +27,9 @@ describe('PokemonComponent', () => {
         MatIconModule,
         MatCardModule,
         MatProgressBarModule,
-        MatSliderModule,
         MatSelectModule,
         MatInputModule,
+        ComponentModule,
       ],
       declarations: [PokemonComponent],
     });
@@ -50,31 +50,29 @@ describe('PokemonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should call api and get hydrocarbontax data ', () => {
-  //   component.fetchHydrocarbonTax();
-  //   const httpRequest = httpMock.expectOne(
-  //     'http://localhost:5000/portal_consulting/v1/api/db/hydrocarbon_tax?idcontract=1'
-  //   );
-  //   const hydrocarbonTaxData: HydrocarbonTax[] = [
-  //     {
-  //       idhydrocarbon_tax: 2,
-  //       idregulated_cost: 1,
-  //       idsubmeter: 2,
-  //       percentage: 0.3,
-  //     },
-  //     {
-  //       idhydrocarbon_tax: 1,
-  //       idregulated_cost: 1,
-  //       idsubmeter: 1,
-  //       percentage: 0.5,
-  //     },
-  //   ];
-  //   httpRequest.flush(hydrocarbonTaxData);
+  //METHODS !!!!!
 
-  //   expect(component.dataSource.data).toEqual(hydrocarbonTaxData);
-  //   expect(httpRequest.request.method).toBe('GET');
-  // });
+  it('should return true when state is visualize', () => {
+    component.state = 'visualize';
+    expect(component.isStateVisualize()).toBeTruthy();
+  });
 
+  it('should return false when state is not visualize', () => {
+    component.state = 'create';
+    expect(component.isStateVisualize()).toBeFalsy();
+  });
+
+  it('should return true when state is create', () => {
+    component.state = 'create';
+    expect(component.isStateCreate()).toBeTruthy();
+  });
+
+  it('should return false when state is not create', () => {
+    component.state = 'visualize';
+    expect(component.isStateCreate()).toBeFalsy();
+  });
+
+  // HTTP/OnInit !!!!
   it('should have data in pokemons after ngOnInit (fetchPokemons)', async(() => {
     component.ngOnInit();
     const httpRequest = httpMock.expectOne(
@@ -112,5 +110,51 @@ describe('PokemonComponent', () => {
     ).toBe(false);
   });
 
-  //TODO TEST PARA TESTEAR ONCLICK BUTTON SE LLAMA FUNCION CREAR POKEMON
+  // DOM/SPY !!!!!
+
+  //IMPORTANTE SI NO ESTA EN EL DOM EL ELEMENTO SALDRA EN ROJO EL TEST
+  it('should test onClick btnCancelCreate should call method cancelCreate', async () => {
+    component.state = 'create';
+    fixture.detectChanges();
+
+    const spyCancelCreateMethod = spyOn(component, 'cancelCreate');
+
+    const cancelButtonElement: HTMLButtonElement =
+      fixture.debugElement.nativeElement.querySelector('#btnCancelCreate');
+
+    cancelButtonElement.dispatchEvent(new Event('click'));
+
+    expect(spyCancelCreateMethod).toHaveBeenCalledOnceWith();
+
+  });
+
+  it('should test onClick btnCancelCreate should not exist', async () => {
+    component.state = 'visualize';
+    fixture.detectChanges();
+
+    const cancelButtonElement: HTMLButtonElement =
+      fixture.debugElement.nativeElement.querySelector('#btnCancelCreate');
+      await fixture.whenStable();
+      expect(cancelButtonElement).toBeNull();
+  });
+
+
+
+  it('should test btnCreatePokemon is not disabled when state is visualize', () => {
+    component.state ='visualize'
+    fixture.detectChanges();
+  
+    const buttonElement: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector('#btnCreatePokemon');
+    expect(buttonElement.disabled).toBeFalsy();
+  });
+  
+  it('should test btnCreatePokemon is disabled state is create', () => {
+    component.state ='create'
+    fixture.detectChanges();
+  
+    const buttonElement: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector('#btnCreatePokemon');
+    expect(buttonElement.disabled).toBeTruthy();
+  });
+
+
 });
