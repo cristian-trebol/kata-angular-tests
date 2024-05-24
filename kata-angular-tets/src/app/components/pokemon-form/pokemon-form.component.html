@@ -2,3 +2,51 @@
     <mat-label>Nombre</mat-label>
     <input [formControl]="pokemonNameControl" id="pokemonNameInput" type="text" matInput>
 </mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Tipo Obligatorio</mat-label>
+    <mat-select [formControl]="pokemonTypeRequiredControl" id="pokemonTypeRequiredControl"> 
+        <mat-option value="1">Fuego</mat-option>
+        <mat-option value="2">Agua</mat-option>
+        <mat-option value="3">Planta</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Tipo Opcional</mat-label>
+    <mat-select [formControl]="pokemonTypeOptionalControl" id="pokemonTypeOptionalControl"> 
+        <mat-option value="1">Fuego</mat-option>
+        <mat-option value="2">Agua</mat-option>
+        <mat-option value="3">Planta</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>HP</mat-label>
+    <input [formControl]="pokemonStatsHPControl" id="pokemonStatsHPControl" type="text" matInput>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Attack</mat-label>
+    <input [formControl]="pokemonStatsAttackControl" id="pokemonStatsAttackControl" type="text" matInput>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Defense</mat-label>
+    <input [formControl]="pokemonStatsDefenseControl" id="pokemonStatsDefenseControl" type="text" matInput>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Special-Attack</mat-label>
+    <input [formControl]="pokemonStatsSpecialAttackControl" id="pokemonStatsSpecialAttackControl" type="text" matInput>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Special-Defense</mat-label>
+    <input [formControl]="pokemonStatsSpecialDefenseControl" id="pokemonStatsSpecialDefenseControl" type="text" matInput>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Speed</mat-label>
+    <input [formControl]="pokemonStatsSpeedControl" id="pokemonStatsSpeedControl" type="text" matInput>
+</mat-form-field>

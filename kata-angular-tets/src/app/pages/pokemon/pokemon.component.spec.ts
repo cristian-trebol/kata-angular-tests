@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ComponentModule } from 'src/app/components/component.module';
+import { Pokemon } from 'src/app/interfaces/pokemon.interface';
 
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
@@ -78,7 +79,7 @@ describe('PokemonComponent', () => {
     const httpRequest = httpMock.expectOne(
       'https://pokeapi.co/api/v2/pokemon?limit=5'
     );
-    const expectedData = [
+    const expectedData: Pokemon[] = [
       { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
       { name: 'ivysaur', url: 'https://pokeapi.co/api/v2/pokemon/2/' },
       { name: 'venusaur', url: 'https://pokeapi.co/api/v2/pokemon/3/' },
@@ -134,24 +135,24 @@ describe('PokemonComponent', () => {
 
     const cancelButtonElement: HTMLButtonElement =
       fixture.debugElement.nativeElement.querySelector('#btnCancelCreate');
-      await fixture.whenStable();
-      expect(cancelButtonElement).toBeNull();
+    await fixture.whenStable();
+    expect(cancelButtonElement).toBeNull();
   });
 
 
 
   it('should test btnCreatePokemon is not disabled when state is visualize', () => {
-    component.state ='visualize'
+    component.state = 'visualize'
     fixture.detectChanges();
-  
+
     const buttonElement: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector('#btnCreatePokemon');
     expect(buttonElement.disabled).toBeFalsy();
   });
-  
+
   it('should test btnCreatePokemon is disabled state is create', () => {
-    component.state ='create'
+    component.state = 'create'
     fixture.detectChanges();
-  
+
     const buttonElement: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector('#btnCreatePokemon');
     expect(buttonElement.disabled).toBeTruthy();
   });
